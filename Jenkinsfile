@@ -4,14 +4,15 @@ pipeline {
       stage('Clone Branch'){
          steps {
             echo "We are currently working on branch: ${env.BRANCH_NAME}"
-            sh '''
+            sh """
 		cd /home/jnorrie
                 if [ -d "Jenk" ]; then
                 rm -rf Jenk
                 echo "build already exists, cleaning..."
                 fi
-		git clone -b ${env.BRANCH_NAME} https://github.com/JenkTest/Jenk
-		'''
+	   	it clone -b ${env.BRANCH_NAME} https://github.com/JenkTest/Jenk
+		"""
+	
 		
 		
          }
