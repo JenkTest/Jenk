@@ -1,5 +1,5 @@
 for i in range(1,1):
-	print("Hello       World ")
+	print("Hello World ")
 
 
 
