@@ -1,14 +1,21 @@
 pipeline {
   agent any
   stages {
-      stage('Build Python'){
+      stage('Clone Branch'){
          steps {
             echo "We are currently working on branch: ${env.BRANCH_NAME}"
-            echo 'hello' 
-            sh 'python /home/jnorrie/Jenk/HelloWorld.py'
+            sh '''
+		cd /home/jnorrie
+                if [ -d "Jenk" ]; then
+                rm -rf Jenk
+                echo "build already exists, cleaning..."
+                fi
+		git clone -b ${env.BRANCH_NAME} https://github.com/JenkTest/Jenk
+		
+		
          }
     }
-    stage('Build Cmake'){
+    stage('Build Cmake Clean'){
         steps{
             
             sh  '''
@@ -26,21 +33,15 @@ pipeline {
                 '''
         }
     }
-    stage('Build Cmake2'){
+    stage('Build Cmake'){
         steps{
             
             sh  '''
-                cd /home/jnorrie/Jenk
-                if [ -d "build" ]; then
-                rm -rf build
-                echo "build already exists, cleaning..."
-                fi
-                mkdir build
-                echo "Building cmake project"
-                cd build && cmake ..
+                cd /home/jnorrie
+		cmake Jenk
                 echo "Build complete, cleaning project"
-                cd ..
-                rm -rf build
+		rm -rf Jenk
+		echo "Build Removed"
                 '''
         }
     }
@@ -62,3 +63,4 @@ pipeline {
         }
   }
 }
+
