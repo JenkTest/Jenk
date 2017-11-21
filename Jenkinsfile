@@ -3,6 +3,7 @@ pipeline {
   stages {
       stage('Build Python'){
          steps {
+            echo "We are currently working on branch: ${env.BRANCH_NAME}"
             echo 'hello' 
             sh 'python /home/jnorrie/Jenk/HelloWorld.py'
          }
