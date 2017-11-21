@@ -1,46 +1,33 @@
+def BRANCH = env.BRANCH_NAME
 pipeline {
   agent any
   stages {
       stage('Clone Branch'){
          steps {
-            echo "We are currently working on branch: ${env.BRANCH_NAME}"
-            sh '''
+            echo "We are currently working on branch: ${BRANCH}"
+            sh """
 		cd /home/jnorrie
-                if [ -d "Jenk" ]; then
-                rm -rf Jenk
+                if [ -d "${BRANCH}" ]; then
+                rm -rf ${BRANCH}
                 echo "build already exists, cleaning..."
                 fi
-		git clone -b ${env.BRANCH_NAME} https://github.com/JenkTest/Jenk
-		'''
+		mkdir ${BRANCH}
+		cd ${BRANCH}
+	   	git clone -b ${BRANCH} https://github.com/JenkTest/Jenk
+		"""
          }
-    }
-    stage('Build Cmake Clean'){
-	steps{
-            sh  '''
-                cd /home/jnorrie/Jenk
-                if [ -d "build" ]; then
-                rm -rf build
-                echo "build already exists, cleaning..."
-                fi
-                mkdir build
-                echo "Building cmake project"
-                cd build && cmake ..
-                echo "Build complete, cleaning project"
-                cd ..
-                rm -rf build
-                '''
-        }
     }
     stage('Build Cmake'){
         steps{
             
-            sh  '''
-                cd /home/jnorrie
+            sh  """
+                cd /home/jnorrie/${BRANCH}
 		cmake Jenk
                 echo "Build complete, cleaning project"
-		rm -rf Jenk
+		cd ..
+		rm -rf ${BRANCH}
 		echo "Build Removed"
-                '''
+                """
         }
     }
       stage('Test') {
