@@ -7,7 +7,7 @@ pipeline {
             sh """
 		cd /home/jnorrie
                 if [ -d "${env.BRANCH_NAME}/Jenk" ]; then
-                rm -rf ${env.BRANCH_NAME}/Jenk
+                rm -rf ${env.BRANCH_NAME}
                 echo "build already exists, cleaning..."
                 fi
 		mkdir ${env.BRANCH_NAME}
