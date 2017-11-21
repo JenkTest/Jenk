@@ -20,10 +20,11 @@ pipeline {
         steps{
             
             sh  """
-                cd /home/jnorrie
-		cmake ${env.BRANCH_NAME}/Jenk
+                cd /home/jnorrie/${env.BRANCH_NAME}
+		cmake Jenk
                 echo "Build complete, cleaning project"
-		rm -rf ${env.BRANCH_NAME}/Jenk
+		cd ..
+		rm -rf ${env.BRANCH_NAME}
 		echo "Build Removed"
                 """
         }
