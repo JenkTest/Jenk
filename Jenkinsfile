@@ -10,7 +10,7 @@ pipeline {
                 rm -rf Jenk
                 echo "build already exists, cleaning..."
                 fi
-		git clone -b ${env.BRANCH_NAME} https://github.com/JenkTest/Jenk
+		git clone -b env.BRANCH_NAME https://github.com/JenkTest/Jenk
 		'''
 		
 		
