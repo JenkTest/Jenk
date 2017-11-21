@@ -44,7 +44,6 @@ pipeline {
                 cd /home/jnorrie
 		cmake ${env.BRANCH_NAME}/Jenk
                 echo "Build complete, cleaning project"
-		rm -rf ${env.BRANCH_NAME}/Jenk
 		echo "Build Removed"
                 """
         }
