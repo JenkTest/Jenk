@@ -11,13 +11,11 @@ pipeline {
                 echo "build already exists, cleaning..."
                 fi
 		git clone -b ${env.BRANCH_NAME} https://github.com/JenkTest/Jenk
-		
-		
+		'''
          }
     }
     stage('Build Cmake Clean'){
-        steps{
-            
+	steps{
             sh  '''
                 cd /home/jnorrie/Jenk
                 if [ -d "build" ]; then
