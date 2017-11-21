@@ -1,9 +1,10 @@
+def BRANCH = env.BRANCH_NAME
 pipeline {
   agent any
   stages {
       stage('Clone Branch'){
          steps {
-            echo "We are currently working on branch: ${env.BRANCH_NAME}"
+            echo "We are currently working on branch: ${BRANCH}"
             sh """
 		cd /home/jnorrie
                 if [ -d "${env.BRANCH_NAME}" ]; then
