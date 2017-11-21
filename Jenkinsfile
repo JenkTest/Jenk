@@ -6,7 +6,7 @@ pipeline {
             echo "We are currently working on branch: ${env.BRANCH_NAME}"
             sh """
 		cd /home/jnorrie
-                if [ -d "${env.BRANCH_NAME}/Jenk" ]; then
+                if [ -d "${env.BRANCH_NAME}" ]; then
                 rm -rf ${env.BRANCH_NAME}
                 echo "build already exists, cleaning..."
                 fi
