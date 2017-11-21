@@ -14,9 +14,6 @@ pipeline {
 		cd ${env.BRANCH_NAME}
 	   	git clone -b ${env.BRANCH_NAME} https://github.com/JenkTest/Jenk
 		"""
-	
-		
-		
          }
     }
     stage('Build Cmake'){
