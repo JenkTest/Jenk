@@ -10,6 +10,8 @@ pipeline {
                 rm -rf ${env.BRANCH_NAME}/Jenk
                 echo "build already exists, cleaning..."
                 fi
+		mkdir ${env.BRANCH_NAME}
+		cd ${env.BRANCH_NAME}
 	   	git clone -b ${env.BRANCH_NAME} https://github.com/JenkTest/Jenk
 		"""
 	
@@ -20,7 +22,7 @@ pipeline {
     stage('Build Cmake Clean'){
         steps{
             
-            sh  '''
+            sh  """
                 cd /home/jnorrie/Jenk
                 if [ -d "build" ]; then
                 rm -rf build
@@ -32,19 +34,19 @@ pipeline {
                 echo "Build complete, cleaning project"
                 cd ..
                 rm -rf build
-                '''
+                """
         }
     }
     stage('Build Cmake'){
         steps{
             
-            sh  '''
+            sh  """
                 cd /home/jnorrie
-		cmake Jenk
+		cmake ${env.BRANCH_NAME}/Jenk
                 echo "Build complete, cleaning project"
-		rm -rf Jenk
+		rm -rf ${env.BRANCH_NAME}/Jenk
 		echo "Build Removed"
-                '''
+                """
         }
     }
       stage('Test') {
