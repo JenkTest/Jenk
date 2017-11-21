@@ -7,13 +7,13 @@ pipeline {
             echo "We are currently working on branch: ${BRANCH}"
             sh """
 		cd /home/jnorrie
-                if [ -d "${env.BRANCH_NAME}" ]; then
-                rm -rf ${env.BRANCH_NAME}
+                if [ -d "${BRANCH}" ]; then
+                rm -rf ${BRANCH}
                 echo "build already exists, cleaning..."
                 fi
-		mkdir ${env.BRANCH_NAME}
-		cd ${env.BRANCH_NAME}
-	   	git clone -b ${env.BRANCH_NAME} https://github.com/JenkTest/Jenk
+		mkdir ${BRANCH}
+		cd ${BRANCH}
+	   	git clone -b ${BRANCH} https://github.com/JenkTest/Jenk
 		"""
          }
     }
@@ -21,11 +21,11 @@ pipeline {
         steps{
             
             sh  """
-                cd /home/jnorrie/${env.BRANCH_NAME}
+                cd /home/jnorrie/${BRANCH}
 		cmake Jenk
                 echo "Build complete, cleaning project"
 		cd ..
-		rm -rf ${env.BRANCH_NAME}
+		rm -rf ${BRANCH}
 		echo "Build Removed"
                 """
         }
