@@ -19,24 +19,6 @@ pipeline {
 		
          }
     }
-    stage('Build Cmake Clean'){
-        steps{
-            
-            sh  """
-                cd /home/jnorrie/Jenk
-                if [ -d "build" ]; then
-                rm -rf build
-                echo "build already exists, cleaning..."
-                fi
-                mkdir build
-                echo "Building cmake project"
-                cd build && cmake ..
-                echo "Build complete, cleaning project"
-                cd ..
-                rm -rf build
-                """
-        }
-    }
     stage('Build Cmake'){
         steps{
             
@@ -44,6 +26,7 @@ pipeline {
                 cd /home/jnorrie
 		cmake ${env.BRANCH_NAME}/Jenk
                 echo "Build complete, cleaning project"
+		rm -rf ${env.BRANCH_NAME}/Jenk
 		echo "Build Removed"
                 """
         }
