@@ -27,6 +27,7 @@ pipeline {
 agent{
 	label 'NumeroUno'
 	}
+	
   stages {
       stage('Clone Branch'){
 	      steps {
@@ -34,6 +35,13 @@ agent{
 		     clone(env.BRANCH_NAME)
          }
     }
+  }
+  post {
+	  success {echo "Build complete"}
+	failure {echo "Failure whilst cloning branch"}
+  }	  
+	  
+	  
     stage('Build Cmake'){
         steps{
 		echo "Building branch"
@@ -41,12 +49,6 @@ agent{
 		echo "Branch built."
         }
     }
-      stage('Test') {
-        steps {
-		if(currentBuild.result == 'SUCCESS'){
-			echo "success"}
-        }
-      }
   }
   post {
         always {
