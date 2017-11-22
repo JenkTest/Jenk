@@ -43,10 +43,8 @@ agent{
     }
       stage('Test') {
         steps {
-          script {
-              // change to 'UNSTABLE' OR 'FAILED' to test the behaviour 
-              currentBuild.result = 'SUCCESS'
-          }
+		if(currentBuild.result == 'SUCCESS'){
+			echo "success"}
         }
       }
   }
