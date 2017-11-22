@@ -1,7 +1,7 @@
 def BRANCH = env.BRANCH_NAME
 pipeline {
 agent{
-	label 'NumberoUno'
+	label 'NumeroUno'
 	}
   stages {
       stage('Clone Branch'){
