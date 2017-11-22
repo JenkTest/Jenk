@@ -1,5 +1,5 @@
 def BRANCH = env.BRANCH_NAME
-def clone() {
+def clone(BRANCH) {
 	   sh """
 		cd /home/jnorrie
                 if [ -d "${BRANCH}" ]; then
@@ -20,7 +20,8 @@ agent{
   stages {
       stage('Clone Branch'){
 	      steps {
-		clone()
+		     echo "We are currently working on branch: ${BRANCH}" 
+		     clone(BRANCH)
          }
     }
     stage('Build Cmake'){
