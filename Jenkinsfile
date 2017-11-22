@@ -36,7 +36,9 @@ agent{
     }
     stage('Build Cmake'){
         steps{
-	build(env.BRANCH_NAME)
+		echo "Building branch"
+		build(env.BRANCH_NAME)
+		echo "Branch built."
         }
     }
       stage('Test') {
