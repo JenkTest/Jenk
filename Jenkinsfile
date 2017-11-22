@@ -1,11 +1,5 @@
-def BRANCH = env.BRANCH_NAME
-pipeline {
-  agent any
-  stages {
-      stage('Clone Branch'){
-         steps {
-            echo "We are currently working on branch: ${BRANCH}"
-            sh """
+def clone(BRANCH) {
+	   sh """
 		cd /home/jnorrie
                 if [ -d "${BRANCH}" ]; then
                 rm -rf ${BRANCH}
@@ -14,37 +8,56 @@ pipeline {
 		mkdir ${BRANCH}
 		cd ${BRANCH}
 	   	git clone -b ${BRANCH} https://github.com/JenkTest/Jenk
+		echo "worked"
 		"""
-         }
-    }
+	}
+
+def build(BRANCH) {
+		sh  """
+        cd /home/jnorrie/${BRANCH}
+	cmake Jenk
+        echo "Build complete, cleaning project"
+	cd ..
+	rm -rf ${BRANCH}
+	echo "Build Removed"
+        """
+	}
+
+pipeline {
+agent{
+	label 'NumeroUno'
+	}
+	
+  stages {
+      stage('Clone Branch'){
+	      steps {
+		     echo "We are currently working on branch: ${env.BRANCH_NAME}" 
+		     clone(env.BRANCH_NAME)
+         	}
+  		post {
+	  		success {echo "Branch cloned."}
+			failure {echo "Failure whilst cloning branch."}
+  		}	  
+  	}  
+	  
     stage('Build Cmake'){
-        steps{
-            
-            sh  """
-                cd /home/jnorrie/${BRANCH}
-		cmake Jenk
-                echo "Build complete, cleaning project"
-		cd ..
-		rm -rf ${BRANCH}
-		echo "Build Removed"
-                """
-        }
-    }
-      stage('Test') {
-        steps {
-          script {
-              // change to 'UNSTABLE' OR 'FAILED' to test the behaviour 
-              currentBuild.result = 'SUCCESS'
-          }
-        }
-      }
+    	steps{
+		echo "Building branch."
+		build(env.BRANCH_NAME)
+	}
+	    post{
+		    success{echo "Branch built."}
+		    failure {echo "Error in build."}
+	    }
+  	}
+  
   }
   post {
         always {
           step([$class: 'Mailer',
-            notifyEveryUnstableBuild: true,
-            recipients: 'jenkenstest@gmail.com',
-            sendToIndividuals: true])
+            	notifyEveryUnstableBuild: true,
+            	recipients: 'jenkenstest@gmail.com',
+            	sendToIndividuals: true])
         }
   }
 }
