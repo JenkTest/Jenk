@@ -46,14 +46,15 @@ agent{
 		build(env.BRANCH_NAME)
 		echo "Branch built."
         }
-  	post {
-        	always {
-          	step([$class: 'Mailer',
-            		notifyEveryUnstableBuild: true,
-            		recipients: 'jenkenstest@gmail.com',
-            		sendToIndividuals: true])
-        	}
-  	}
+
   }
   }
 }
+  post {
+        always {
+          step([$class: 'Mailer',
+            	notifyEveryUnstableBuild: true,
+            	recipients: 'jenkenstest@gmail.com',
+            	sendToIndividuals: true])
+        }
+  }
