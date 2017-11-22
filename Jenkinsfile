@@ -1,4 +1,3 @@
-def BRANCH = env.BRANCH_NAME
 def clone(BRANCH) {
 	   sh """
 		cd /home/jnorrie
@@ -13,6 +12,17 @@ def clone(BRANCH) {
 		"""
 	}
 
+def build(BRANCH) {
+		sh  """
+        cd /home/jnorrie/${BRANCH}
+	cmake Jenk
+        echo "Build complete, cleaning project"
+	cd ..
+	rm -rf ${BRANCH}
+	echo "Build Removed"
+        """
+	}
+
 pipeline {
 agent{
 	label 'NumeroUno'
@@ -21,20 +31,12 @@ agent{
       stage('Clone Branch'){
 	      steps {
 		     echo "We are currently working on branch: ${BRANCH}" 
-		     clone(BRANCH)
+		     clone(env.BRANCH_NAME)
          }
     }
     stage('Build Cmake'){
         steps{
-            
-            sh  """
-                cd /home/jnorrie/${BRANCH}
-		cmake Jenk
-                echo "Build complete, cleaning project"
-		cd ..
-		rm -rf ${BRANCH}
-		echo "Build Removed"
-                """
+	build(BRANCH)
         }
     }
       stage('Test') {
