@@ -19,8 +19,7 @@ agent{
 	}
   stages {
       stage('Clone Branch'){
-         steps {
-            	echo "We are currently working on branch: ${BRANCH}"
+	      steps {
 		clone()
          }
     }
