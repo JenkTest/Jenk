@@ -9,6 +9,7 @@ def clone() {
 		mkdir ${BRANCH}
 		cd ${BRANCH}
 	   	git clone -b ${BRANCH} https://github.com/JenkTest/Jenk
+		echo "worked"
 		"""
 	}
 
