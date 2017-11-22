@@ -35,19 +35,19 @@ agent{
 		     clone(env.BRANCH_NAME)
          	}
   		post {
-	  		success {echo "Build complete"}
-			failure {echo "Failure whilst cloning branch"}
+	  		success {echo "Branch cloned."}
+			failure {echo "Failure whilst cloning branch."}
   		}	  
   	}  
 	  
     stage('Build Cmake'){
     	steps{
-		echo "Building branch"
+		echo "Building branch."
 		build(env.BRANCH_NAME)
 	}
 	    post{
-		    success{echo "Branch Built"}
-		    failure {echo "Error in build"}
+		    success{echo "Branch built."}
+		    failure {echo "Error in build."}
 	    }
   	}
   
