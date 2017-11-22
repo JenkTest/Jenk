@@ -49,7 +49,6 @@ agent{
 
   }
   }
-}
   post {
         always {
           step([$class: 'Mailer',
@@ -58,3 +57,5 @@ agent{
             	sendToIndividuals: true])
         }
   }
+}
+
