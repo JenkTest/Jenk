@@ -33,27 +33,27 @@ agent{
 	      steps {
 		     echo "We are currently working on branch: ${env.BRANCH_NAME}" 
 		     clone(env.BRANCH_NAME)
-         }
-    }
-  post {
-	  success {echo "Build complete"}
-	failure {echo "Failure whilst cloning branch"}
-  	}	  
-  }  
+         	}
+  		post {
+	  		success {echo "Build complete"}
+			failure {echo "Failure whilst cloning branch"}
+  		}	  
+  	}  
 	  
     stage('Build Cmake'){
-        steps{
+    	steps{
 		echo "Building branch"
 		build(env.BRANCH_NAME)
 		echo "Branch built."
         }
-  post {
-        always {
-          step([$class: 'Mailer',
-            notifyEveryUnstableBuild: true,
-            recipients: 'jenkenstest@gmail.com',
-            sendToIndividuals: true])
-        }
+  	post {
+        	always {
+          	step([$class: 'Mailer',
+            		notifyEveryUnstableBuild: true,
+            		recipients: 'jenkenstest@gmail.com',
+            		sendToIndividuals: true])
+        	}
+  	}
   }
   }
 }
