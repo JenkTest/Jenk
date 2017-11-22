@@ -1,6 +1,8 @@
 def BRANCH = env.BRANCH_NAME
 pipeline {
-agent('NumeroUno') {
+agent{
+	label 'NumberoUno'
+	}
   stages {
       stage('Clone Branch'){
          steps {
@@ -47,5 +49,4 @@ agent('NumeroUno') {
             sendToIndividuals: true])
         }
   }
-}
 }
