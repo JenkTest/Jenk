@@ -30,13 +30,13 @@ agent{
   stages {
       stage('Clone Branch'){
 	      steps {
-		     echo "We are currently working on branch: ${BRANCH}" 
+		     echo "We are currently working on branch: ${env.BRANCH_NAME}" 
 		     clone(env.BRANCH_NAME)
          }
     }
     stage('Build Cmake'){
         steps{
-	build(BRANCH)
+	build(env.BRANCH_NAME)
         }
     }
       stage('Test') {
