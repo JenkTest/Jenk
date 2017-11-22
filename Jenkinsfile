@@ -49,4 +49,3 @@ agent{
             sendToIndividuals: true])
         }
   }
-}
