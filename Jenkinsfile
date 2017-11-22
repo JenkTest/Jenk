@@ -44,10 +44,13 @@ agent{
     	steps{
 		echo "Building branch"
 		build(env.BRANCH_NAME)
-		echo "Branch built."
-        }
-
-  }
+	}
+	    post{
+		    success{echo "Branch Built"}
+		    failure {echo "Error in build"}
+	    }
+  	}
+  
   }
   post {
         always {
