@@ -1,4 +1,17 @@
 def BRANCH = env.BRANCH_NAME
+def clone() {
+	   sh """
+		cd /home/jnorrie
+                if [ -d "${BRANCH}" ]; then
+                rm -rf ${BRANCH}
+                echo "build already exists, cleaning..."
+                fi
+		mkdir ${BRANCH}
+		cd ${BRANCH}
+	   	git clone -b ${BRANCH} https://github.com/JenkTest/Jenk
+		"""
+	}
+
 pipeline {
 agent{
 	label 'NumeroUno'
