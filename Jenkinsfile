@@ -49,7 +49,6 @@ agent{
 		echo "Branch built."
         }
     }
-  }
   post {
         always {
           step([$class: 'Mailer',
