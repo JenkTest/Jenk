@@ -35,12 +35,11 @@ agent{
 		     clone(env.BRANCH_NAME)
          }
     }
-  }
   post {
 	  success {echo "Build complete"}
 	failure {echo "Failure whilst cloning branch"}
-  }	  
-	  
+  	}	  
+  }  
 	  
     stage('Build Cmake'){
         steps{
@@ -48,7 +47,6 @@ agent{
 		build(env.BRANCH_NAME)
 		echo "Branch built."
         }
-    }
   post {
         always {
           step([$class: 'Mailer',
@@ -56,5 +54,6 @@ agent{
             recipients: 'jenkenstest@gmail.com',
             sendToIndividuals: true])
         }
+  }
   }
 }
