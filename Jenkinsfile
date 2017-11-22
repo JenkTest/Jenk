@@ -19,17 +19,8 @@ agent{
   stages {
       stage('Clone Branch'){
          steps {
-            echo "We are currently working on branch: ${BRANCH}"
-            sh """
-		cd /home/jnorrie
-                if [ -d "${BRANCH}" ]; then
-                rm -rf ${BRANCH}
-                echo "build already exists, cleaning..."
-                fi
-		mkdir ${BRANCH}
-		cd ${BRANCH}
-	   	git clone -b ${BRANCH} https://github.com/JenkTest/Jenk
-		"""
+            	echo "We are currently working on branch: ${BRANCH}"
+		clone()
          }
     }
     stage('Build Cmake'){
