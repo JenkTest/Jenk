@@ -58,7 +58,7 @@ agent{
               		allowMissing: false,
               		alwaysLinkToLastBuild: false,
               		keepAll: true,
-              		reportDir: 'coverage',
+              		reportDir: '/home/jnorrie/archive',
               		reportFiles: 'index.html',
               		reportName: 'Report'
             		]
