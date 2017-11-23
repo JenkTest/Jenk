@@ -54,10 +54,14 @@ agent{
   }
   post {
         always {
-          step([$class: 'Mailer',
-            	notifyEveryUnstableBuild: true,
-            	recipients: 'jenkenstest@gmail.com',
-            	sendToIndividuals: true])
+	   	publishHTML target: [
+              		allowMissing: false,
+              		alwaysLinkToLastBuild: false,
+              		keepAll: true,
+              		reportDir: 'coverage',
+              		reportFiles: 'index.html',
+              		reportName: 'Report'
+            		]
         }
   }
 }
