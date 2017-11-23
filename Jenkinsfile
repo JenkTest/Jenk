@@ -52,9 +52,5 @@ agent{
   	}
   
   }
-  post {
-        always {
-        }
-  }
 }
 
