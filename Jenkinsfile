@@ -54,14 +54,6 @@ agent{
   }
   post {
         always {
-	   	publishHTML target: [
-              		allowMissing: false,
-              		alwaysLinkToLastBuild: false,
-              		keepAll: true,
-              		reportDir: '/home/jnorrie/archive',
-              		reportFiles: 'index.html',
-              		reportName: 'Report'
-            		]
         }
   }
 }
