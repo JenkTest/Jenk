@@ -29,7 +29,7 @@ def build(BRANCH) {
 def pythonReport(CLONE, BUILD) {
 	sh """
 		cd /home/jnorrie/archive
-		python -c 'from reportMaker import bool2json; print bool2json(${env.BUILD_NUMBER},${CLONE},${BUILD}, ${env.GIT_BRANCH} +"report.json")' 
+		python -c 'from reportMaker import bool2json; print bool2json(${env.BUILD_NUMBER},${CLONE},${BUILD}, "${env.GIT_BRANCH}" +"report.json")' 
 		"""
 
 	}
