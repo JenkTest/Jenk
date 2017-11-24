@@ -26,6 +26,15 @@ def build(BRANCH) {
         """
 	}
 
+def pythonReport(BRANCH ,CLONE, BUILD) {
+	sh """
+		cd /home/jnorrie/archive
+		python -c 'from reportMaker import bool2json; print bool2json(${env.BUILD_NUMBER},${CLONE},${BUILD}, ${env.BUILD_NUMBER}+"report.json")' 
+		"""
+
+	}
+
+
 pipeline {
 agent{
 	label 'NumeroUno'
@@ -63,5 +72,8 @@ agent{
   	}
   
   }
+
+	
+	
 }
 
