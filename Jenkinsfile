@@ -1,3 +1,6 @@
+def buildBool = 0
+def cloneBool = 0
+
 def clone(BRANCH) {
 	   sh """
 		cd /home/jnorrie
@@ -35,7 +38,8 @@ agent{
 		     clone(env.BRANCH_NAME)
          	}
   		post {
-	  		success {echo "Branch cloned."}
+	  		success {echo "Branch cloned."
+				cloneBool =1}
 			failure {echo "Failure whilst cloning branch."}
   		}	  
   	}  
@@ -46,7 +50,9 @@ agent{
 		build(env.BRANCH_NAME)
 	}
 	    post{
-		    success{echo "Branch built."}
+		    always{}
+		    success{echo "Branch built."
+			   buildBool = 1}
 		    failure {echo "Error in build."}
 	    }
   	}
