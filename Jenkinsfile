@@ -73,7 +73,7 @@ agent{
   
   }
 
-	Post{
+	post{
 		always{
 			pythonReport(cloneBool, buildBool)
 		}
