@@ -50,7 +50,7 @@ agent{
 		build(env.BRANCH_NAME)
 	}
 	    post{
-		    always{}
+		   
 		    success{echo "Branch built."
 			   buildBool = 1}
 		    failure {echo "Error in build."}
