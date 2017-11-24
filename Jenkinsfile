@@ -39,9 +39,8 @@ agent{
          	}
   		post {
 	  		success {
-				steps{echo "Branch cloned."
+				echo "Branch cloned."
 				      script {cloneBool = 1}
-				     }
 				}
 			failure {echo "Failure whilst cloning branch."}
   		}	  
@@ -55,9 +54,9 @@ agent{
 	    post{
 		   
 		    success{
-			    steps{echo "Branch built."
-				  script{buildBool = 1}
-				 }
+			    echo "Branch built."
+				script{buildBool = 1}
+				 
 		    	}
 		    failure {echo "Error in build."}
 	    }
