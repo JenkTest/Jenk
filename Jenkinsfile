@@ -29,7 +29,7 @@ def build(BRANCH) {
 def pythonReport(CLONE, BUILD) {
 	sh """
 		cd /home/jnorrie/archive
-		python -c 'from reportMaker import writeYaml; print writeYaml(${env.BUILD_NUMBER},${CLONE},${BUILD}, "${env.GIT_BRANCH}" +"_report.yaml")' 
+		python -c 'from reportMaker import mainCollect; print mainCollect(${env.BUILD_NUMBER},${CLONE},${BUILD}, "${env.GIT_BRANCH}" +"_report.yaml")' 
 		"""
 
 	}
