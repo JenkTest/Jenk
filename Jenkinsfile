@@ -37,8 +37,8 @@ def pythonReport(t1, t2, t3 ,CLONE, BUILD) {
 
 	}
 
-timestamps{
 pipeline {
+	timestamps{
 agent{
 	label 'NumeroUno'
 	}
