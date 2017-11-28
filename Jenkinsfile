@@ -32,12 +32,12 @@ def build(BRANCH) {
 def pythonReport(t1, t2, t3 ,CLONE, BUILD) {
 	sh """
 		cd /home/jnorrie/archive
-		python -c 'from reportMaker import mainCollect; print mainCollect(${env.BUILD_NUMBER}, "${env.GIT_BRANCH}" +"_report.yaml", ${t1}, ${t2} ,${t3} ,Clone=${CLONE}, Build=${BUILD})' 
+		python -c 'from reportMaker import mainCollect; print mainCollect(${env.BUILD_NUMBER}, "${env.GIT_BRANCH}" +"_report.yaml",Clone=${CLONE}, Build=${BUILD})' 
 		"""
 
 	}
 
-
+timestamps{
 pipeline {
 agent{
 	label 'NumeroUno'
@@ -81,10 +81,10 @@ agent{
 
 	post{
 		always{
-			pythonReport(cloneBool, time1, time2, time3,buildBool)
+			pythonReport(cloneBool,buildBool)
 		}
 	}
 	
 	
 }
-
+}
