@@ -1,5 +1,8 @@
 def buildBool = 0
 def cloneBool = 0
+def time1 = 0
+def time2 = 0
+def time3 = 0
 
 def clone(BRANCH) {
 	   sh """
@@ -43,8 +46,10 @@ agent{
   stages {
       stage('Clone Branch'){
 	      steps {
+		     time1 = ${env.BUILD_TIMESTAMP}
 		     echo "We are currently working on branch: ${env.BRANCH_NAME}" 
 		     clone(env.BRANCH_NAME)
+		     time2 = ${env.BUILD_TIMESTAMP}
          	}
   		post {
 	  		success {
@@ -59,6 +64,7 @@ agent{
     	steps{
 		echo "Building branch."
 		build(env.BRANCH_NAME)
+		time3 = ${env.BUILD_TIMESTAMP}
 	}
 	    post{
 		   
