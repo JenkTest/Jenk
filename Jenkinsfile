@@ -38,7 +38,7 @@ def pythonReport(CLONE, BUILD, t0, t1, t2) {
 	}
 def time() {
 	nano = sh (
-    		script: 'date +%N',
+    		script: 'date +%s',
     		returnStdout: true
 		).trim()
 	return nano
