@@ -36,6 +36,12 @@ def pythonReport(CLONE, BUILD) {
 		"""
 
 	}
+def time() {
+	GIT_COMMIT_EMAIL = sh (
+    		script: 'date +%N',
+    		returnStdout: true
+		).trim()
+}
 
 pipeline {
 agent{
