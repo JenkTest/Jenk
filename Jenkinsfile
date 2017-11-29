@@ -53,6 +53,7 @@ agent{
       stage('Clone Branch'){
 	      steps {
 		     script{time0 = time()}
+		      echo "${time0}"
 		     echo "We are currently working on branch: ${env.BRANCH_NAME}" 
 		     clone(env.BRANCH_NAME)
 		     script{time1 = env.BUILD_TIMESTAMP}
