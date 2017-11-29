@@ -29,10 +29,10 @@ def build(BRANCH) {
         """
 	}
 
-def pythonReport(CLONE, BUILD) {
+def pythonReport(CLONE, BUILD, t0, t1, t2) {
 	sh """
 		cd /home/jnorrie/archive
-		python -c 'from reportMaker import mainCollect; print mainCollect(${env.BUILD_NUMBER}, "${env.GIT_BRANCH}" +"_report.yaml",Clone=${CLONE}, Build=${BUILD})' 
+		python -c 'from reportMaker import mainCollect; print mainCollect(${env.BUILD_NUMBER}, "${env.GIT_BRANCH}" +"_report.yaml", ${t0}, ${t1}, ${t2},Clone=${CLONE}, Build=${BUILD})' 
 		"""
 
 	}
@@ -52,11 +52,10 @@ agent{
   stages{
       stage('Clone Branch'){
 	      steps {
-		     script{time0 = time()}
-		      echo "${time0}"
+		      script{time0 = time()}
 		     echo "We are currently working on branch: ${env.BRANCH_NAME}" 
 		     clone(env.BRANCH_NAME)
-		     script{time1 = env.BUILD_TIMESTAMP}
+		     script{time1 = time()}
          	}
   		post {
 	  		success {
@@ -71,7 +70,7 @@ agent{
     	steps{
 		echo "Building branch."
 		build(env.BRANCH_NAME)
-		script{time2 = env.BUILD_TIMESTAMP}
+		script{time2 = time()}
 	}
 	    post{
 		   
@@ -88,7 +87,7 @@ agent{
 
 	post{
 		always{
-			pythonReport(cloneBool,buildBool)
+			pythonReport(cloneBool,buildBool, time0, time1, time2)
 		}
 	}
 	
