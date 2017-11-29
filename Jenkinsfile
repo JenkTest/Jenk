@@ -42,7 +42,7 @@ agent{
 	label 'NumeroUno'
 	}
 	
-  stages {
+  timestamps {
       stage('Clone Branch'){
 	      steps {
 		     echo "We are currently working on branch: ${env.BRANCH_NAME}" 
